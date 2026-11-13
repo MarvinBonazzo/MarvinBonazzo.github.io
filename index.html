@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marvin Bonazzo — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/transition.js"></script>
+<style>
+  :root {
+    --cream: #f4ede1;
+    --ink: #3b352d;
+    --ink-soft: #7a7064;
+    --glass-edge: rgba(255, 255, 255, 0.75);
+    --line: rgba(122, 104, 80, 0.35);
+    --card-w: min(430px, 76vw, 62vh);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: "Roboto Condensed", system-ui, sans-serif; font-weight: 300; color: var(--ink); overflow-x: hidden; }
+
+  /* soft colour patches drawn as gradients (no blur filter to composite every frame) */
+  .blob { position: fixed; border-radius: 50%; z-index: -1; pointer-events: none; }
+  .blob.a { width: 56vw; height: 56vw; top: -17vw; right: -1vw; background: radial-gradient(circle, rgba(247,217,180,.55) 0%, rgba(247,217,180,.25) 35%, rgba(247,217,180,0) 68%); }
+  .blob.b { width: 46vw; height: 46vw; bottom: -14vw; left: -4vw; background: radial-gradient(circle, rgba(232,214,240,.35) 0%, rgba(232,214,240,.15) 35%, rgba(232,214,240,0) 68%); }
+
+  /* glass, without live background blur (that does not work inside 3D anyway) */
+  .glass {
+    background: linear-gradient(135deg, rgba(255,255,255,.86), rgba(255,252,245,.7) 55%, rgba(255,248,235,.62));
+    border: 1px solid var(--glass-edge);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.9), inset 0 -1px 0 rgba(200,180,150,.2), 0 14px 28px -18px rgba(90,70,40,.3);
+    position: relative; overflow: hidden;
+  }
+  .glass::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(115deg, rgba(255,255,255,.55) 0%, rgba(255,255,255,0) 38%);
+  }
+
+  /* ——— intro ——— */
+  .intro { height: 100vh; display: grid; place-items: center; text-align: center; padding: 0 16px; }
+  .intro h1 { font-weight: 300; font-size: clamp(2.6rem, 9vw, 7.5rem); letter-spacing: -.01em; line-height: 1; color: rgba(59,53,45,.82); }
+  .intro .hint {
+    position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+    font-size: .85rem; letter-spacing: .25em; text-transform: uppercase; color: var(--ink-soft);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .intro .hint span { display: inline-block; animation: nudge 1.8s ease-in-out infinite; }
+  @keyframes nudge { 50% { transform: translateY(7px); } }
+
+  /* ——— the spiral: projects on a helix inside a tube; scrolling travels down it ——— */
+  .h-wrap { position: relative; }                       /* height set by JS */
+  .h-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; perspective: 1500px; perspective-origin: 50% 45%; }
+  .scene { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform-style: preserve-3d; will-change: transform; }
+  /* leaves are flat: one 3D context (the scene) instead of one per card and per line piece */
+  .scene > * { position: absolute; left: 0; top: 0; transform-style: flat; transform-origin: 0 0; }  /* pivot on the tube axis */
+
+  .card {
+    width: var(--card-w); border-radius: 24px; padding: 12px 12px 22px;
+    backface-visibility: visible;                        /* seen from behind, it shows reversed */
+    will-change: transform;
+  }
+  .card .shot { display: block; border-radius: 15px; overflow: hidden; position: relative; aspect-ratio: 16 / 10; -webkit-tap-highlight-color: transparent; }
+  .card .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+  .card .open {
+    position: absolute; right: 14px; bottom: 14px;
+    display: inline-flex; align-items: center; gap: 8px; padding: 8px 15px; border-radius: 999px;
+    font-size: .88rem; color: var(--ink);
+    background: linear-gradient(135deg, rgba(255,255,255,.94), rgba(255,250,240,.8));
+    border: 1px solid rgba(255,255,255,.9); box-shadow: inset 0 1px 0 #fff, 0 8px 22px -10px rgba(90,70,40,.45);
+  }
+  .card .open i { font-style: normal; display: inline-block; animation: open-nudge 1.8s ease-in-out infinite; }
+  @keyframes open-nudge { 50% { transform: translateX(4px); } }
+  .card .info { padding: 16px 10px 0; }
+  .card .num { font-size: .78rem; letter-spacing: .25em; color: var(--ink-soft); }
+  .card h2 { font-weight: 400; font-size: clamp(1.9rem, 3.4vw, 2.6rem); line-height: 1.05; margin: 4px 0 8px; }
+  .card h2 a { text-decoration: none; color: inherit; }
+  .card p { font-size: 1.02rem; line-height: 1.45; color: #5a5147; }
+  .card .meta { margin-top: 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .card .tags { font-size: .76rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); }
+  .card .ext { padding: 7px 15px; border-radius: 999px; font-size: .88rem; color: var(--ink); text-decoration: none; }
+  @media (hover: hover) {
+    .card .shot:hover img { transform: scale(1.02); }
+    .card .ext:hover, .card h2 a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  }
+  .card a:focus-visible { outline: 2px solid rgba(122,96,60,.6); outline-offset: 3px; }
+
+  .card.outro { padding: 40px 28px; text-align: center; background: none; border: 0; box-shadow: none; }
+  .card.outro::before { display: none; }
+  .outro { display: grid; justify-items: center; gap: 16px; }
+  .outro .all { display: inline-block; padding: 16px 34px; border-radius: 999px; text-decoration: none; font-size: clamp(1.3rem, 2.4vw, 1.7rem); color: var(--ink); }
+  .outro p { font-size: 1.05rem; color: var(--ink-soft); }
+  .outro p a { color: var(--ink); text-underline-offset: 3px; }
+  .outro .mail a { user-select: all; }
+
+  /* the line: a continuous spiral that grows as you scroll, ending in a small circle */
+  .seg { height: 1.5px; }
+  .seg b { display: block; width: 100%; height: 100%; background: rgba(122,96,60,.5); border-radius: 1px; transform-origin: 0 50%; transform: scaleX(0); }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--cream); border: 1.5px solid rgba(122,96,60,.7); opacity: 0; transition: opacity .3s ease; }
+
+  .counter {
+    position: fixed; right: 24px; bottom: 22px; font-size: .8rem; letter-spacing: .2em; color: var(--ink-soft);
+    padding: 8px 14px; border-radius: 999px; opacity: 0; transition: opacity .4s; z-index: 5;
+  }
+  .counter.on { opacity: 1; }
+
+  @media (max-width: 700px) {
+    .h-sticky { perspective: 1000px; }
+    .card { padding: 10px 10px 18px; }
+    .card p { font-size: .96rem; }
+    .card .open { font-size: .8rem; padding: 7px 12px; right: 10px; bottom: 10px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .card .open i { animation: none; } }
+</style>
+</head>
+<body>
+<div class="blob a"></div><div class="blob b"></div>
+
+<section class="intro">
+  <h1 class="reveal">Semplice e trasparente</h1>
+  <div class="hint">Scorri <span>↓</span></div>
+</section>
+
+<section class="h-wrap" id="hwrap">
+  <div class="h-sticky">
+    <div class="scene" id="scene">
+
+      <article class="card glass" data-item>
+        <a class="shot" href="progetto.html#bustachiara"><img src="img/bustachiara.png" alt="Schermata di BustaChiara"><span class="open" aria-hidden="true">Apri il case study <i>→</i></span></a>
+        <div class="info">
+          <div class="num">01</div>
+          <h2><a href="progetto.html#bustachiara">BustaChiara</a></h2>
+          <p>Legge la busta paga e la spiega voce per voce, con i conti in chiaro. Tutto resta sul tuo dispositivo.</p>
+          <div class="meta"><span class="tags">JavaScript · PWA</span><a class="ext glass" href="https://github.com/MarvinBonazzo/bustachiara" target="_blank" rel="noopener">GitHub ↗</a></div>
+        </div>
+      </article>
+
+      <article class="card glass" data-item>
+        <a class="shot" href="progetto.html#scontrino-stipendio"><img src="img/scontrino-stipendio.png" alt="Schermata di Scontrino delle tasse"><span class="open" aria-hidden="true">Apri il case study <i>→</i></span></a>
+        <div class="info">
+          <div class="num">02</div>
+          <h2><a href="progetto.html#scontrino-stipendio">Scontrino delle tasse</a></h2>
+          <p>Dal tuo lordo a quanto vai a pagare di INPS e IRPEF, stampato come uno scontrino.</p>
+          <div class="meta"><span class="tags">HTML · IRPEF 2026</span><a class="ext glass" href="https://marvinbonazzo.github.io/scontrino-stipendio/" target="_blank" rel="noopener">Apri ↗</a></div>
+        </div>
+      </article>
+
+      <article class="card glass" data-item>
+        <a class="shot" href="progetto.html#scontrino-pubblico"><img src="img/scontrino-pubblico.png" alt="Schermata di Scontrino pubblico"><span class="open" aria-hidden="true">Apri il case study <i>→</i></span></a>
+        <div class="info">
+          <div class="num">03</div>
+          <h2><a href="progetto.html#scontrino-pubblico">Scontrino pubblico</a></h2>
+          <p>Quanto spende lo Stato per ogni residente, per l'Italia e per circa 7.900 Comuni. Solo dati ufficiali.</p>
+          <div class="meta"><span class="tags">HTML · Eurostat · ISTAT</span><a class="ext glass" href="https://marvinbonazzo.github.io/scontrino-pubblico/" target="_blank" rel="noopener">Apri ↗</a></div>
+        </div>
+      </article>
+
+      <article class="card glass" data-item>
+        <a class="shot" href="progetto.html#budjet"><img src="img/budjet.png" alt="Schermata di BudJet"><span class="open" aria-hidden="true">Apri il case study <i>→</i></span></a>
+        <div class="info">
+          <div class="num">04</div>
+          <h2><a href="progetto.html#budjet">BudJet</a></h2>
+          <p>Budget minimale in tre gruppi: essenziali, extra e risparmio. Niente account, niente pubblicità.</p>
+          <div class="meta"><span class="tags">TypeScript · Mac · Web</span><a class="ext glass" href="https://marvinbonazzo.github.io/budjet/" target="_blank" rel="noopener">Apri ↗</a></div>
+        </div>
+      </article>
+
+      <article class="card glass" data-item>
+        <a class="shot" href="progetto.html#gelatonutriente"><img src="img/gelatonutriente.png" alt="Schermata di GelatoNutriente"><span class="open" aria-hidden="true">Apri il case study <i>→</i></span></a>
+        <div class="info">
+          <div class="num">05</div>
+          <h2><a href="progetto.html#gelatonutriente">GelatoNutriente</a></h2>
+          <p>Web app per organizzare piani alimentari, con le formule del fabbisogno mostrate passo per passo.</p>
+          <div class="meta"><span class="tags">TypeScript · Web app</span><a class="ext glass" href="https://github.com/MarvinBonazzo/GelatoNutriente" target="_blank" rel="noopener">GitHub ↗</a></div>
+        </div>
+      </article>
+
+      <article class="card glass" data-item>
+        <a class="shot" href="progetto.html#loya"><img src="img/loya.png" alt="Schermata di Loya"><span class="open" aria-hidden="true">Apri il case study <i>→</i></span></a>
+        <div class="info">
+          <div class="num">06</div>
+          <h2><a href="progetto.html#loya">Loya</a></h2>
+          <p>Il portafoglio digitale per carte fedeltà, biglietti e codici. Tutto sul telefono, senza cloud.</p>
+          <div class="meta"><span class="tags">Kotlin · Android · PWA</span><a class="ext glass" href="https://github.com/MarvinBonazzo/Loya" target="_blank" rel="noopener">GitHub ↗</a></div>
+        </div>
+      </article>
+
+      <div class="card outro" data-item>
+        <a class="all glass" href="progetti.html">Tutti i progetti →</a>
+        <p>Altro su <a href="https://github.com/MarvinBonazzo" target="_blank" rel="noopener">github.com/MarvinBonazzo</a></p>
+        <p class="mail">Scrivimi a <a href="mailto:arriolaraymarvin@gmail.com">arriolaraymarvin@gmail.com</a></p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="counter glass" id="counter">01 / 06</div>
+
+<script>
+(() => {
+  // Scrolling down travels down a helix: each project sits one step further round and
+  // one step lower. The next one waits on the right, comes to the front, then turns
+  // away to the left and behind, where you see it from the back.
+  // The browser ties rotation, fades and line to the scroll (scroll-driven CSS animations),
+  // so it runs with the scroll on the GPU. Older browsers fall back to a JavaScript ease.
+  const wrap = document.getElementById('hwrap');
+  const scene = document.getElementById('scene');
+  const counter = document.getElementById('counter');
+  const items = [...scene.querySelectorAll('[data-item]')];
+  const N = items.length, PROJECTS = N - 1;
+  const STEP = 60;                                   // degrees round the tube per project
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const touch = matchMedia('(hover: none), (pointer: coarse)').matches;
+  // wherever the browser can tie animations to the scroll, let it (laptop and phone): it runs
+  // on the GPU with the scroll itself, so nothing waits on the main thread
+  const NATIVE = !reduce && CSS.supports('animation-timeline: view()');
+  const EASE = reduce || touch || NATIVE ? 1 : 0.12;
+  const pad = n => String(n).padStart(2, '0');
+  const rad = d => d * Math.PI / 180;
+  let R = 600, PITCH = 300, PER = 700, wrapTop = 0, vh = innerHeight, cur = 0, raf = 0;
+  let deco = [], lastIdx = -1, counterOn = null, lastPE = -1;
+  let path = [], lastQ = -1e9, endDot = null;   // line pieces in order: { bar, t0, t1 } along the spiral
+  const START = 0.36;                 // the line begins just after the first card (BustaChiara)
+  const LEAD = 0.32;                  // the line runs this far ahead of the card in front
+
+  const place = (el, t, extra = '') =>
+    el.style.transform = `rotateY(${t * STEP}deg) translateZ(${R}px) translateY(${t * PITCH}px) ${extra}`;
+  const opacityAt = a => Math.max(0, Math.min(1, 1.25 - (a - 0.6) * 0.55));
+  const pt = (t, r) => ({ x: r * Math.sin(rad(t * STEP)), y: t * PITCH, z: r * Math.cos(rad(t * STEP)) });
+
+  function layout() {
+    vh = innerHeight;
+    const w = items[0].offsetWidth;
+    // radius so neighbours never overlap: chord between two steps ≥ 1.12 × card width
+    R = Math.round(w * 1.12 / (2 * Math.sin(rad(STEP / 2))));
+    PITCH = Math.round(vh * 0.42);                   // how much lower each next project sits
+    PER = Math.round(vh * 0.85);                     // scroll needed to move one project
+    wrap.style.height = (vh + (N - 1) * PER) + 'px';
+    wrapTop = wrap.getBoundingClientRect().top + scrollY;
+    items.forEach((el, i) => { el.dataset.i = i; place(el, i, 'translate(-50%, -50%)'); });
+
+    // the line: one continuous spiral, a little inside the cards, ending just before the last words
+    deco.forEach(d => d.remove()); deco = []; path = []; lastQ = -1e9;
+    const frag = document.createDocumentFragment();
+    const r = R * 0.93, end = N - 1 - 0.24, h = 0.155;
+    for (let t = START; t < end - 1e-6; t += h) {
+      const t1 = Math.min(end, t + h);
+      const A = pt(t, r), B = pt(t1, r);
+      const dx = B.x - A.x, dy = B.y - A.y, dz = B.z - A.z, L = Math.hypot(dx, dy, dz);
+      // anchored at its start A, pointing at B: the stroke inside grows from A towards B
+      const seg = document.createElement('i'); seg.className = 'seg';
+      seg.style.width = (L + 0.8).toFixed(1) + 'px';
+      seg.style.transform = `translate3d(${A.x}px, ${A.y}px, ${A.z}px) ` +
+        `rotateY(${Math.atan2(-dz, dx) * 180 / Math.PI}deg) rotateZ(${Math.asin(dy / L) * 180 / Math.PI}deg) translateY(-50%)`;
+      const bar = document.createElement('b'); seg.appendChild(bar);
+      frag.appendChild(seg); deco.push(seg); path.push({ bar, t0: t, t1 });
+    }
+    const E = pt(end, r), dot = document.createElement('i'); dot.className = 'dot';
+    dot.style.transform = `translate3d(${E.x}px, ${E.y}px, ${E.z}px) rotateY(${end * STEP}deg) translate(-50%, -50%)`;
+    frag.appendChild(dot); deco.push(dot); endDot = dot;
+    scene.appendChild(frag);
+
+    if (NATIVE) buildNative();
+    cur = target(); render(cur);
+  }
+
+  // phone: write keyframes the browser runs against the scroll position of the section
+  function buildNative() {
+    let css = `.h-wrap{view-timeline:--spiral block}
+      @keyframes spiral{from{transform:translateZ(${-R}px) translateY(0px) rotateY(0deg)}
+        to{transform:translateZ(${-R}px) translateY(${-(N - 1) * PITCH}px) rotateY(${-(N - 1) * STEP}deg)}}
+      #scene{animation:spiral linear both;animation-timeline:--spiral;animation-range:contain 0% contain 100%}`;
+    items.forEach((el, i) => {
+      let f = '';
+      for (let k = 0; k <= (N - 1) * 4; k++) {
+        const p = k / 4;
+        f += `${(p / (N - 1) * 100).toFixed(3)}%{opacity:${opacityAt(Math.abs(i - p)).toFixed(3)}}`;
+      }
+      css += `@keyframes fade${i}{${f}}
+        [data-i="${i}"]{animation:fade${i} linear both;animation-timeline:--spiral;animation-range:contain 0% contain 100%}`;
+    });
+    css += `@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+      @keyframes show{from{opacity:0}to{opacity:1}}`;
+    const pc = t => Math.max(0, Math.min(100, (t - LEAD) / (N - 1) * 100)).toFixed(3);
+    path.forEach(({ bar, t0, t1 }) => {
+      bar.style.animation = 'grow linear both';
+      bar.style.animationTimeline = '--spiral';
+      bar.style.animationRange = `contain ${pc(t0)}% contain ${pc(t1)}%`;
+    });
+    endDot.style.animation = 'show linear both';
+    endDot.style.animationTimeline = '--spiral';
+    endDot.style.animationRange = `contain ${pc(N - 1 - 0.24)}% contain ${pc(N - 1 - 0.14)}%`;
+    let tag = document.getElementById('spiral-kf');
+    if (!tag) { tag = document.createElement('style'); tag.id = 'spiral-kf'; document.head.appendChild(tag); }
+    tag.textContent = css;
+  }
+
+  const target = () => Math.min(N - 1, Math.max(0, (scrollY - wrapTop) / PER));
+
+  function render(p) {
+    if (!NATIVE) {
+      scene.style.transform = `translateZ(${-R}px) translateY(${-p * PITCH}px) rotateY(${-p * STEP}deg)`;
+      items.forEach((el, i) => { el.style.opacity = opacityAt(Math.abs(i - p)).toFixed(3); });
+      // the line grows continuously to just past the card in front
+      const q = p + LEAD, lo = Math.min(q, lastQ), hi = Math.max(q, lastQ);
+      for (const sgm of path) {
+        if (sgm.t1 < lo || sgm.t0 > hi) continue;            // only pieces whose state changed
+        const f = Math.max(0, Math.min(1, (q - sgm.t0) / (sgm.t1 - sgm.t0)));
+        sgm.bar.style.transform = `scaleX(${f.toFixed(4)})`;
+      }
+      if (lastQ === -1e9) path.forEach(sgm => {
+        const f = Math.max(0, Math.min(1, (q - sgm.t0) / (sgm.t1 - sgm.t0)));
+        sgm.bar.style.transform = `scaleX(${f.toFixed(4)})`;
+      });
+      endDot.style.opacity = q >= N - 1 - 0.24 ? '1' : '0';
+      lastQ = q;
+    }
+    const front = Math.round(p);
+    if (front !== lastPE && Math.abs(front - p) < 0.5) {   // only the card in front can be tapped
+      items.forEach((el, i) => { el.style.pointerEvents = i === front ? 'auto' : 'none'; });
+      lastPE = front;
+    }
+    const idx = Math.min(PROJECTS - 1, front);
+    const on = scrollY > wrapTop - vh * 0.3 && p < N - 1.5;
+    if (on !== counterOn) { counter.classList.toggle('on', on); counterOn = on; }
+    if (idx !== lastIdx) { counter.textContent = pad(idx + 1) + ' / ' + pad(PROJECTS); lastIdx = idx; }
+  }
+
+  let lastT = 0;
+  function tick(now) {
+    const tgt = target();
+    const dt = lastT ? Math.min(64, now - lastT) : 16.7; lastT = now;
+    const k = EASE >= 1 ? 1 : 1 - Math.pow(1 - EASE, dt / 16.7);
+    cur += (tgt - cur) * k;
+    if (Math.abs(tgt - cur) < 0.0008) cur = tgt;
+    render(cur);
+    raf = cur === tgt ? 0 : requestAnimationFrame(tick);
+    if (!raf) lastT = 0;
+  }
+  addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(tick); }, { passive: true });
+
+  // Laptop: wheel and trackpad glide to the new position instead of jumping there.
+  // The page still scrolls for real (so the browser keeps drawing the spiral on the GPU);
+  // only the steps in between are smoothed.
+  if (!touch && !reduce) {
+    let goal = scrollY, pos = scrollY, sraf = 0, slast = 0;
+    const GLIDE = 0.085;
+    const glide = now => {
+      const dt = slast ? Math.min(64, now - slast) : 16.7; slast = now;
+      pos += (goal - pos) * (1 - Math.pow(1 - GLIDE, dt / 16.7));
+      if (Math.abs(goal - pos) < 0.5) pos = goal;
+      scrollTo({ top: pos, behavior: 'instant' });
+      sraf = pos === goal ? 0 : requestAnimationFrame(glide);
+      if (!sraf) slast = 0;
+    };
+    addEventListener('wheel', e => {
+      if (e.ctrlKey) return;                         // pinch to zoom stays native
+      e.preventDefault();
+      const dy = e.deltaMode === 1 ? e.deltaY * 40 : e.deltaMode === 2 ? e.deltaY * innerHeight : e.deltaY;
+      if (!sraf) { pos = scrollY; goal = scrollY; }
+      goal = Math.max(0, Math.min(document.documentElement.scrollHeight - innerHeight, goal + dy));
+      if (!sraf) sraf = requestAnimationFrame(glide);
+    }, { passive: false });
+    // keys, scrollbar or links take over at once
+    const stop = () => { cancelAnimationFrame(sraf); sraf = 0; slast = 0; };
+    addEventListener('keydown', stop);
+    addEventListener('mousedown', stop);
+  }
+
+  let lastW = innerWidth, lastH = innerHeight;
+  addEventListener('resize', () => {
+    if (innerWidth === lastW && Math.abs(innerHeight - lastH) < 160) return;   // mobile address bar
+    lastW = innerWidth; lastH = innerHeight; layout();
+  });
+  addEventListener('load', layout);
+  layout();
+})();
+</script>
+</body>
+</html>

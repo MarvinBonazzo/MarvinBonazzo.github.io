@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case study — Marvin Bonazzo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<script>history.scrollRestoration = 'manual';</script>
+<script src="assets/transition.js"></script>
+<style>
+  .topbar { position: fixed; left: 0; right: 0; top: 0; z-index: 20; }
+
+  /* opening screen: name + one line */
+  .intro h1 { font-weight: 300; font-size: clamp(2.8rem, 9vw, 7.5rem); line-height: 1; color: rgba(59,53,45,.85); }
+  .intro .tag { margin-top: 18px; font-size: clamp(1.05rem, 2vw, 1.35rem); color: var(--ink-mid); max-width: 34ch; margin-inline: auto; line-height: 1.4; }
+  .intro .eyebrow { margin-bottom: 18px; }
+
+  /* vertical case study */
+  .cs { padding-top: 4vh; }
+  .cover { border-radius: 26px; padding: 12px; }
+  .cover img { border-radius: 16px; width: 100%; aspect-ratio: 16/10; object-fit: cover; object-position: top; }
+  .actions { margin: 18px 0 6vh; display: flex; gap: 10px; flex-wrap: wrap; }
+
+  .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 9vh; }
+  .fact { border-radius: 18px; padding: 18px 20px; }
+  .fact .k { font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-soft); }
+  .fact .v { margin-top: 6px; font-size: 1.05rem; font-weight: 400; line-height: 1.3; }
+
+  .block { display: grid; grid-template-columns: 220px 1fr; gap: 40px; padding: 0 0 9vh; }
+  .block > div { min-width: 0; }
+  .block h2 { font-weight: 400; font-size: 1.05rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); padding-top: 6px; }
+  .block p.lead { font-size: clamp(1.2rem, 2vw, 1.5rem); line-height: 1.45; color: var(--ink); }
+  .block p { font-size: 1.12rem; line-height: 1.6; color: var(--ink-mid); }
+
+  .audience { list-style: none; display: grid; gap: 12px; }
+  .audience li { padding: 16px 20px; border-radius: 16px; font-size: 1.1rem; line-height: 1.45; color: var(--ink-mid); }
+
+  .principles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .principle { border-radius: 20px; padding: 22px 24px; }
+  .principle h3 { font-weight: 400; font-size: 1.3rem; margin-bottom: 8px; }
+  .principle p { font-size: 1.02rem; line-height: 1.5; }
+
+  .steps { position: relative; display: grid; gap: 22px; padding-left: 34px; }
+  .steps::before { content: ""; position: absolute; left: 7px; top: 8px; bottom: 8px; border-left: 1.5px dashed var(--line); }
+  .step { position: relative; }
+  .step::before { content: ""; position: absolute; left: -34px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--cream); border: 1.5px solid rgba(122,96,60,.7); }
+  .step h3 { font-weight: 400; font-size: 1.25rem; }
+  .step p { margin-top: 2px; }
+
+  .gallery { display: flex; gap: 16px; overflow-x: auto; padding: 6px 2px 18px; scroll-snap-type: x mandatory; }
+  .gallery .g { flex: 0 0 auto; border-radius: 20px; padding: 8px; scroll-snap-align: start; }
+  .gallery img { height: min(62vh, 520px); width: auto; aspect-ratio: 390 / 844; object-fit: cover; border-radius: 13px; }
+
+  /* images fade in once they have loaded, instead of popping in */
+  .cover, .gallery .g { background: linear-gradient(135deg, rgba(255,255,255,.7), rgba(244,237,225,.5)); }
+  .cs img {
+    opacity: 0; transform: scale(1.015); filter: blur(6px);
+    transition: opacity .45s ease-out, transform .6s cubic-bezier(.2,.7,.2,1), filter .4s ease-out;
+  }
+  .cs img.loaded { opacity: 1; transform: none; filter: none; }
+  @media (prefers-reduced-motion: reduce) { .cs img { transition: opacity .3s ease; transform: none; filter: none; } }
+
+  .note { border-radius: 20px; padding: 24px 26px; }
+
+  .pager { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding-bottom: 10vh; }
+  .pager a { border-radius: 22px; padding: 22px 26px; text-decoration: none; transition: transform .25s; }
+  .pager a:hover { transform: translateY(-3px); }
+  .pager .dir { font-size: .75rem; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-soft); }
+  .pager .t { margin-top: 6px; font-size: 1.5rem; }
+  .pager .next { text-align: right; }
+
+  @media (max-width: 760px) {
+    .facts { grid-template-columns: 1fr 1fr; }
+    .block { grid-template-columns: 1fr; gap: 16px; }
+    .principles { grid-template-columns: 1fr; }
+    .pager { grid-template-columns: 1fr; }
+    .pager .next { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<div class="blob a"></div><div class="blob b"></div>
+
+<nav class="topbar">
+  <a class="pill glass" href="./#hwrap">← Portfolio</a>
+  <a class="pill glass" href="progetti.html">Tutti i progetti</a>
+</nav>
+
+<section class="intro" id="intro"></section>
+<main class="wrap cs" id="cs"></main>
+
+<script src="assets/projects.js"></script>
+<script>
+(() => {
+  scrollTo(0, 0);
+  const list = window.PROJECTS;
+  const slug = decodeURIComponent(location.hash.slice(1)) || new URLSearchParams(location.search).get('p');
+  const i = Math.max(0, list.findIndex(p => p.slug === slug));
+  const p = list[i];
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const prev = list[(i - 1 + list.length) % list.length];
+  const next = list[(i + 1) % list.length];
+  const pad = n => String(n).padStart(2, '0');
+  document.title = `${p.name} — Marvin Bonazzo`;
+
+  document.getElementById('intro').innerHTML = `
+    <div>
+      <div class="eyebrow">Case study · ${pad(i + 1)} / ${pad(list.length)}</div>
+      <h1>${esc(p.name)}</h1>
+      <p class="tag">${esc(p.tagline)}</p>
+    </div>
+    <div class="hint">Scorri <span>↓</span></div>`;
+
+  const block = (title, body) => `<section class="block"><h2>${title}</h2><div>${body}</div></section>`;
+
+  document.getElementById('cs').innerHTML = `
+    <div class="cover glass"><img src="${p.cover}" alt="Schermata di ${esc(p.name)}"></div>
+    <div class="actions">
+      ${p.links.live ? `<a class="pill glass" href="${p.links.live}" target="_blank" rel="noopener">Apri il progetto ↗</a>` : ''}
+      ${p.links.code ? `<a class="pill glass" href="${p.links.code}" target="_blank" rel="noopener">Codice su GitHub ↗</a>` : ''}
+    </div>
+
+    <div class="facts">
+      ${Object.entries(p.facts).map(([k, v]) => `<div class="fact glass"><div class="k">${esc(k)}</div><div class="v">${esc(v)}</div></div>`).join('')}
+    </div>
+
+    ${block('Il problema', `<p class="lead">${esc(p.problem)}</p>`)}
+    ${block('Per chi è', `<ul class="audience">${p.audience.map(a => `<li class="glass">${esc(a)}</li>`).join('')}</ul>`)}
+    ${block('Principi', `<div class="principles">${p.principles.map(([h, t]) => `
+      <div class="principle glass"><h3>${esc(h)}</h3><p>${esc(t)}</p></div>`).join('')}</div>`)}
+    ${block('Come funziona', `<div class="steps">${p.how.map(([h, t]) => `<div class="step"><h3>${esc(h)}</h3><p>${esc(t)}</p></div>`).join('')}</div>`)}
+    ${block('Schermate', `<div class="gallery">${p.gallery.map(g => `<div class="g glass"><img src="${g}" alt="Schermata di ${esc(p.name)}" loading="lazy"></div>`).join('')}</div>`)}
+    ${block('Scelte tecniche', `<p>${esc(p.tech)}</p>`)}
+    ${block('Come è nato', `<div class="note glass"><p>${esc(p.story)}</p></div>`)}
+    ${p.next ? block('Prossimi passi', `<p>${esc(p.next)}</p>`) : ''}
+
+    <nav class="pager">
+      <a class="glass" href="progetto.html#${prev.slug}"><div class="dir">← Precedente</div><div class="t">${esc(prev.name)}</div></a>
+      <a class="glass next" href="progetto.html#${next.slug}"><div class="dir">Successivo →</div><div class="t">${esc(next.name)}</div></a>
+    </nav>`;
+
+  // fade each image in when it is ready (cached ones too, a moment after the page appears)
+  document.querySelectorAll('#cs img').forEach((img, n) => {
+    const show = () => setTimeout(() => img.classList.add('loaded'), img.dataset.late ? 0 : 30 + n * 35);
+    if (img.complete && img.naturalWidth) show();
+    else { img.addEventListener('load', show, { once: true }); img.addEventListener('error', () => img.classList.add('loaded'), { once: true }); }
+  });
+})();
+addEventListener('hashchange', () => location.reload());
+</script>
+</body>
+</html>
