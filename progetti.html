@@ -12,7 +12,13 @@
 <style>
   header { padding: 8vh 0 6vh; }
   header h1 { font-weight: 300; font-size: clamp(2.6rem, 7vw, 5rem); line-height: 1; margin-top: 12px; color: rgba(59,53,45,.88); }
-  .list { list-style: none; display: grid; gap: 14px; padding-bottom: 12vh; }
+  .list { list-style: none; display: grid; gap: 14px; }
+  .group { display: grid; gap: 14px; padding-bottom: 8vh; }
+  .group-head { display: grid; gap: 6px; padding: 0 6px 4px; }
+  .group-head h2 { font-weight: 400; font-size: 1.05rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+  .group-head h2 a { text-decoration: none; }
+  .group-head h2 a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .group-head p { color: var(--ink-mid); font-size: 1.05rem; max-width: 60ch; }
   .item a {
     display: grid; grid-template-columns: 56px 180px 1fr auto; gap: 26px; align-items: center;
     padding: 14px 26px 14px 14px; border-radius: 22px; text-decoration: none; transition: transform .25s;
@@ -24,7 +30,13 @@
   .item p { margin-top: 4px; color: var(--ink-mid); font-size: 1.05rem; line-height: 1.45; max-width: 60ch; }
   .item .go { font-size: 1.3rem; color: var(--ink-soft); }
   @media (max-width: 760px) {
-    .item a { grid-template-columns: 96px 1fr; gap: 16px; padding: 10px 16px 10px 10px; }
+    .group { display: grid; gap: 14px; padding-bottom: 8vh; }
+  .group-head { display: grid; gap: 6px; padding: 0 6px 4px; }
+  .group-head h2 { font-weight: 400; font-size: 1.05rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+  .group-head h2 a { text-decoration: none; }
+  .group-head h2 a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .group-head p { color: var(--ink-mid); font-size: 1.05rem; max-width: 60ch; }
+  .item a { grid-template-columns: 96px 1fr; gap: 16px; padding: 10px 16px 10px 10px; }
     .item .num, .item .go { display: none; }
     .item img { width: 96px; aspect-ratio: 1; border-radius: 10px; }
     .item h2 { font-size: 1.25rem; }
@@ -44,19 +56,24 @@
     <div class="eyebrow">Indice</div>
     <h1>Tutti i progetti</h1>
   </header>
-  <ul class="list" id="list"></ul>
+  <div id="groups"></div>
 </main>
 
 <script src="assets/projects.js"></script>
 <script>
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  document.getElementById('list').innerHTML = window.PROJECTS.map((p, i) => `
+  const item = p => `
     <li class="item"><a class="glass" href="progetto.html#${p.slug}">
-      <span class="num">${String(i + 1).padStart(2, '0')}</span>
+      <span class="num">${String(window.PROJECTS.indexOf(p) + 1).padStart(2, '0')}</span>
       <img src="${p.cover}" alt="" loading="lazy">
       <div><h2>${esc(p.name)}</h2><p>${esc(p.short)}</p></div>
       <span class="go">→</span>
-    </a></li>`).join('');
+    </a></li>`;
+  document.getElementById('groups').innerHTML = Object.entries(window.CATEGORIES).map(([key, c]) => `
+    <section class="group">
+      <div class="group-head"><h2><a href="cartella.html#${key}">${esc(c.name)}</a></h2><p>${esc(c.text)}</p></div>
+      <ul class="list">${window.PROJECTS.filter(p => p.category === key).map(item).join('')}</ul>
+    </section>`).join('');
 </script>
 </body>
 </html>

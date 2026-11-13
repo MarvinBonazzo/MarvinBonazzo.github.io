@@ -1,7 +1,14 @@
 // Contenuti dei progetti: usati da progetto.html (case study) e progetti.html (lista).
+window.CATEGORIES = {
+  civic: { name: 'Civic tech', text: 'Strumenti che rendono comprensibili i soldi tra cittadini e Stato: stipendio, tasse, spesa pubblica.' },
+  utility: { name: 'Utility personali', text: 'Nati per un mio bisogno quotidiano e usati ogni giorno.' },
+  vertical: { name: 'Vertical software', text: 'Software costruito su misura per una professione specifica.' }
+};
+
 window.PROJECTS = [
   {
     slug: 'bustachiara',
+    category: 'civic',
     name: 'BustaChiara',
     short: 'Legge la busta paga e la spiega voce per voce, con i conti in chiaro. Tutto resta sul tuo dispositivo.',
     tagline: 'La busta paga dovrebbe essere semplice: parla dei nostri soldi.',
@@ -33,6 +40,7 @@ window.PROJECTS = [
   },
   {
     slug: 'scontrino-stipendio',
+    category: 'civic',
     name: 'Scontrino delle tasse',
     short: 'Dal tuo lordo a quanto vai a pagare di INPS e IRPEF, stampato come uno scontrino.',
     tagline: 'Quanto costa davvero il tuo lavoro, e dove vanno le tue tasse.',
@@ -63,6 +71,7 @@ window.PROJECTS = [
   },
   {
     slug: 'scontrino-pubblico',
+    category: 'civic',
     name: 'Scontrino pubblico',
     short: 'Quanto spende lo Stato per ogni residente, per l\'Italia e per circa 7.900 Comuni. Solo dati ufficiali.',
     tagline: 'La spesa pubblica di un anno, divisa per ogni persona che vive in Italia.',
@@ -94,6 +103,7 @@ window.PROJECTS = [
   },
   {
     slug: 'budjet',
+    category: 'utility',
     name: 'BudJet',
     short: 'Budget minimale in tre gruppi: essenziali, extra e risparmio. Niente account, niente pubblicità.',
     tagline: 'Capire in un colpo d\'occhio dove vanno i soldi ogni mese.',
@@ -123,37 +133,8 @@ window.PROJECTS = [
     story: 'È partita a giugno 2026 dal mio foglio di calcolo del budget. Con Claude l\'ho rifatta più volte, sempre verso il più semplice: via il giorno della spesa, categorie ridotte, inserimento tutto da tastiera, torte con solo tre fette e riquadri chiusi di default. A novembre si è aggiunto il "quanto ti rimane" del mese.',
   },
   {
-    slug: 'gelatonutriente',
-    name: 'GelatoNutriente',
-    short: 'Web app per organizzare piani alimentari, con le formule del fabbisogno mostrate passo per passo.',
-    tagline: 'Piani alimentari, pazienti e fabbisogno energetico in un\'unica web app.',
-    cover: 'img/gelatonutriente.png',
-    gallery: ['img/gelato-m1.png'],
-    links: { live: 'https://marvinbonazzo.github.io/GelatoNutriente/', code: 'https://github.com/MarvinBonazzo/GelatoNutriente' },
-    facts: { Anno: '2026', Tipo: 'Web app statica', Stack: 'React 19 · TypeScript · Vite · Dexie', Versione: '0.7' },
-    problem: 'Chi segue persone con un piano alimentare spesso lavora tra fogli di calcolo, documenti Word e calcolatrici online. I calcoli del fabbisogno sono una scatola nera e i dati dei pazienti finiscono sparsi tra mille servizi.',
-    audience: [
-      'Nutrizionisti e dietisti che preparano piani settimanali per i propri pazienti.',
-      'Professionisti che vogliono vedere e controllare ogni passaggio del calcolo.',
-      'I pazienti, che consultano il proprio piano e la lista della spesa.'
-    ],
-    principles: [
-      ['Il calcolo si vede', 'Nove metodi energetici a confronto, ognuno con algoritmo, dati necessari e fonte.'],
-      ['Il professionista decide', 'Ogni correzione automatica si può sovrascrivere; l\'obiettivo manuale ha sempre la priorità.'],
-      ['Niente backend', 'Archivio locale nel browser, esportazione cifrata, nessun account.'],
-      ['Nessun dato inventato', 'Il primo avvio carica solo gli alimenti. L\'esempio dimostrativo si chiede a mano.']
-    ],
-    how: [
-      ['Paziente', 'Anagrafica, obiettivi, questionario, misurazioni e appuntamenti.'],
-      ['Fabbisogno', 'Mifflin–St Jeor, Harris–Benedict, Schofield, Katch–McArdle e altri, con correzione per l\'obiettivo.'],
-      ['Settimana', 'Sette giorni, pasti modificabili, varianti e alternative per ingrediente da un catalogo di 249 alimenti.'],
-      ['Consegna', 'PDF della dieta con il logo dello studio, vista paziente e lista della spesa.']
-    ],
-    tech: 'React 19, TypeScript e Vite 8 per una build interamente statica su GitHub Pages. Zustand per lo stato, Dexie su IndexedDB per l\'archivio con transazioni e migrazioni, dietro contratti asincroni sostituibili un giorno con un\'API REST. Grafici con Recharts caricati su richiesta, nessuna CDN e nessun font remoto.',
-    story: 'Un progetto cresciuto per versioni: dall\'editor della settimana alla gestione dei pazienti, poi i metodi energetici, il questionario, i PDF e l\'esportazione cifrata. Ogni funzione è stata pensata per far vedere al professionista il perché di ogni numero.',
-  },
-  {
     slug: 'loya',
+    category: 'utility',
     name: 'Loya',
     short: 'Il portafoglio digitale per carte fedeltà, biglietti e codici. Tutto sul telefono, senza cloud.',
     tagline: 'Il portafoglio digitale che può contenere tutto.',
@@ -181,5 +162,48 @@ window.PROJECTS = [
     ],
     tech: 'App nativa Kotlin in due edizioni: una con Google ML Kit per la migliore scansione dei documenti, una completamente offline con ZXing e OpenCV, compilata senza il permesso Internet di Android. Accanto, una PWA per iPhone, iPad e computer. Le tre versioni condividono lo stesso formato di backup.',
     story: 'Nata a giugno 2026 come "Carta Wallet", un\'app per il mio telefono GrapheneOS. Con Claude l\'ho portata avanti un bug alla volta: la fotocamera che si bloccava, le carte che non si salvavano, l\'avvio lento. Poi sono arrivati il riconoscimento automatico del formato, i biglietti, i QR code e la versione per tutti.',
+  },
+  {
+    slug: 'gelatonutriente',
+    category: 'vertical',
+    name: 'GelatoNutriente',
+    short: 'Web app per organizzare piani alimentari, con le formule del fabbisogno mostrate passo per passo.',
+    tagline: 'Piani alimentari, pazienti e fabbisogno energetico in un\'unica web app.',
+    cover: 'img/gelatonutriente.png',
+    gallery: ['img/gelato-m1.png'],
+    links: { live: 'https://marvinbonazzo.github.io/GelatoNutriente/', code: 'https://github.com/MarvinBonazzo/GelatoNutriente' },
+    facts: { Anno: '2026', Tipo: 'Web app statica', Stack: 'React 19 · TypeScript · Vite · Dexie', Versione: '0.7' },
+    problem: 'Chi segue persone con un piano alimentare spesso lavora tra fogli di calcolo, documenti Word e calcolatrici online. I calcoli del fabbisogno sono una scatola nera e i dati dei pazienti finiscono sparsi tra mille servizi.',
+    audience: [
+      'Nutrizionisti e dietisti che preparano piani settimanali per i propri pazienti.',
+      'Professionisti che vogliono vedere e controllare ogni passaggio del calcolo.',
+      'I pazienti, che consultano il proprio piano e la lista della spesa.'
+    ],
+    principles: [
+      ['Il calcolo si vede', 'Nove metodi energetici a confronto, ognuno con algoritmo, dati necessari e fonte.'],
+      ['Il professionista decide', 'Ogni correzione automatica si può sovrascrivere; l\'obiettivo manuale ha sempre la priorità.'],
+      ['Niente backend', 'Archivio locale nel browser, esportazione cifrata, nessun account.'],
+      ['Nessun dato inventato', 'Il primo avvio carica solo gli alimenti. L\'esempio dimostrativo si chiede a mano.']
+    ],
+    how: [
+      ['Paziente', 'Anagrafica, obiettivi, questionario, misurazioni e appuntamenti.'],
+      ['Fabbisogno', 'Mifflin–St Jeor, Harris–Benedict, Schofield, Katch–McArdle e altri, con correzione per l\'obiettivo.'],
+      ['Settimana', 'Sette giorni, pasti modificabili, varianti e alternative per ingrediente da un catalogo di 249 alimenti.'],
+      ['Consegna', 'PDF della dieta con il logo dello studio, vista paziente e lista della spesa.']
+    ],
+    research: {
+      intro: 'Prima di disegnare una schermata ho studiato come lavora oggi un nutrizionista e quali regole deve rispettare un calcolo del fabbisogno. Ogni fase ha prodotto una scelta di design precisa.',
+      steps: [
+        ['Mappare il lavoro di oggi', 'Ho ricostruito il percorso tipico di una visita: anamnesi, misure, calcolo del fabbisogno, stesura della settimana, consegna al paziente. Ogni passaggio vive in uno strumento diverso: fogli di calcolo, documenti Word, calcolatrici online.', 'Un solo flusso in quattro tappe (Paziente, Fabbisogno, Settimana, Consegna), nello stesso ordine della visita.'],
+        ['Studiare le formule', 'Ho raccolto le equazioni del metabolismo basale usate in letteratura (Mifflin–St Jeor, Harris–Benedict, Schofield, Katch–McArdle e altre), con i dati che richiede ciascuna e la fonte originale.', 'Nove metodi affiancati, ognuno con algoritmo, dati necessari e fonte. Il professionista sceglie, l\'app non decide al posto suo.'],
+        ['Analizzare gli strumenti esistenti', 'Le calcolatrici online danno un numero senza spiegarlo; i gestionali completi chiedono account, abbonamento e caricano i dati sanitari dei pazienti su un server.', 'Il calcolo resta sempre visibile e ogni correzione automatica si può sovrascrivere a mano.'],
+        ['Definire i vincoli sui dati', 'Anamnesi, peso e abitudini alimentari sono dati sanitari: chi li gestisce ne risponde in prima persona.', 'Nessun backend e nessun account. Archivio locale nel browser ed esportazione cifrata per il backup.'],
+        ['Pensare all\'uso ripetuto', 'Un nutrizionista prepara molti piani alla settimana e ripete gli stessi gesti decine di volte: sostituire un alimento, duplicare un pasto, generare il PDF.', 'Varianti e alternative per ingrediente da un catalogo di 249 alimenti, pasti modificabili e PDF con il logo dello studio in un clic.'],
+        ['Iterare per versioni', 'Ogni versione ha aggiunto un pezzo del flusso e rivisto i precedenti: editor della settimana, schede paziente, metodi energetici, questionario, PDF, esportazione cifrata.', 'Arrivata alla 0.7, la prossima fase è il test con nutrizionisti e dietisti su casi reali.']
+      ]
+    },
+    tech: 'React 19, TypeScript e Vite 8 per una build interamente statica su GitHub Pages. Zustand per lo stato, Dexie su IndexedDB per l\'archivio con transazioni e migrazioni, dietro contratti asincroni sostituibili un giorno con un\'API REST. Grafici con Recharts caricati su richiesta, nessuna CDN e nessun font remoto.',
+    story: 'Un progetto cresciuto per versioni: dall\'editor della settimana alla gestione dei pazienti, poi i metodi energetici, il questionario, i PDF e l\'esportazione cifrata. Ogni funzione è stata pensata per far vedere al professionista il perché di ogni numero.',
   }
+
 ];

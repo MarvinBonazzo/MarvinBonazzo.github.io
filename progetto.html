@@ -63,6 +63,10 @@
   .cs img.loaded { opacity: 1; transform: none; filter: none; }
   @media (prefers-reduced-motion: reduce) { .cs img { transition: opacity .3s ease; transform: none; filter: none; } }
 
+  .steps.research { margin-top: 28px; gap: 30px; }
+  .decision { margin-top: 10px !important; padding: 12px 16px; border-radius: 14px; background: rgba(255,255,255,.5); border: 1px solid var(--glass-edge); color: var(--ink) !important; font-size: 1.02rem !important; line-height: 1.5 !important; }
+  .decision span { display: block; font-size: .7rem; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 4px; }
+
   .note { border-radius: 20px; padding: 24px 26px; }
 
   .pager { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding-bottom: 10vh; }
@@ -71,6 +75,7 @@
   .pager .dir { font-size: .75rem; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-soft); }
   .pager .t { margin-top: 6px; font-size: 1.5rem; }
   .pager .next { text-align: right; }
+  .pager.single { grid-template-columns: 1fr; }
 
   @media (max-width: 760px) {
     .facts { grid-template-columns: 1fr 1fr; }
@@ -85,7 +90,7 @@
 <div class="blob a"></div><div class="blob b"></div>
 
 <nav class="topbar">
-  <a class="pill glass" href="./#hwrap">← Portfolio</a>
+  <a class="pill glass" id="back" href="./#hwrap">← Portfolio</a>
   <a class="pill glass" href="progetti.html">Tutti i progetti</a>
 </nav>
 
@@ -101,14 +106,19 @@
   const i = Math.max(0, list.findIndex(p => p.slug === slug));
   const p = list[i];
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const prev = list[(i - 1 + list.length) % list.length];
-  const next = list[(i + 1) % list.length];
+  const cat = window.CATEGORIES[p.category] || { name: 'Case study' };
+  const folder = list.filter(q => q.category === p.category);
+  const fi = folder.indexOf(p);
+  const prev = folder[(fi - 1 + folder.length) % folder.length];
+  const next = folder[(fi + 1) % folder.length];
+  const back = document.getElementById('back');
+  back.href = `cartella.html#${p.category}`; back.textContent = `← ${cat.name}`;
   const pad = n => String(n).padStart(2, '0');
   document.title = `${p.name} — Marvin Bonazzo`;
 
   document.getElementById('intro').innerHTML = `
     <div>
-      <div class="eyebrow">Case study · ${pad(i + 1)} / ${pad(list.length)}</div>
+      <div class="eyebrow">${esc(cat.name)} · ${pad(fi + 1)} / ${pad(folder.length)}</div>
       <h1>${esc(p.name)}</h1>
       <p class="tag">${esc(p.tagline)}</p>
     </div>
@@ -129,6 +139,8 @@
 
     ${block('Il problema', `<p class="lead">${esc(p.problem)}</p>`)}
     ${block('Per chi è', `<ul class="audience">${p.audience.map(a => `<li class="glass">${esc(a)}</li>`).join('')}</ul>`)}
+    ${p.research ? block('Ricerca', `<p class="lead">${esc(p.research.intro)}</p>
+      <div class="steps research">${p.research.steps.map(([h, t, d]) => `<div class="step"><h3>${esc(h)}</h3><p>${esc(t)}</p><p class="decision"><span>Scelta</span>${esc(d)}</p></div>`).join('')}</div>`) : ''}
     ${block('Principi', `<div class="principles">${p.principles.map(([h, t]) => `
       <div class="principle glass"><h3>${esc(h)}</h3><p>${esc(t)}</p></div>`).join('')}</div>`)}
     ${block('Come funziona', `<div class="steps">${p.how.map(([h, t]) => `<div class="step"><h3>${esc(h)}</h3><p>${esc(t)}</p></div>`).join('')}</div>`)}
@@ -137,10 +149,10 @@
     ${block('Come è nato', `<div class="note glass"><p>${esc(p.story)}</p></div>`)}
     ${p.next ? block('Prossimi passi', `<p>${esc(p.next)}</p>`) : ''}
 
-    <nav class="pager">
+    ${folder.length > 1 ? `<nav class="pager">
       <a class="glass" href="progetto.html#${prev.slug}"><div class="dir">← Precedente</div><div class="t">${esc(prev.name)}</div></a>
       <a class="glass next" href="progetto.html#${next.slug}"><div class="dir">Successivo →</div><div class="t">${esc(next.name)}</div></a>
-    </nav>`;
+    </nav>` : `<nav class="pager single"><a class="glass" href="cartella.html#${p.category}"><div class="dir">← Torna alla cartella</div><div class="t">${esc(cat.name)}</div></a></nav>`}`;
 
   // fade each image in when it is ready (cached ones too, a moment after the page appears)
   document.querySelectorAll('#cs img').forEach((img, n) => {

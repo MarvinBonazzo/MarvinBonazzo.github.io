@@ -106,6 +106,29 @@
   }
   .counter.on { opacity: 1; }
 
+
+  /* folder: the covers of its projects, fanned out like papers in a folder */
+  .card .shot.stack { background: linear-gradient(160deg, rgba(239,226,203,.9), rgba(244,237,225,.6)); }
+  .card .shot.stack img { position: absolute; width: 62%; height: auto; aspect-ratio: 16 / 10; left: 19%; top: 16%;
+    border-radius: 10px; box-shadow: 0 10px 24px -12px rgba(90,70,40,.45); border: 1px solid rgba(255,255,255,.8);
+    transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+  .card .shot.n1 img { width: 78%; left: 11%; top: 10%; }
+  .card .shot.n2 img:nth-child(1) { transform: translateX(-16%) rotate(-5deg); }
+  .card .shot.n2 img:nth-child(2) { transform: translateX(16%) translateY(6%) rotate(4deg); }
+  .card .shot.n3 img:nth-child(1) { transform: translateX(-24%) translateY(4%) rotate(-7deg); }
+  .card .shot.n3 img:nth-child(2) { transform: translateY(-2%); z-index: 1; }
+  .card .shot.n3 img:nth-child(3) { transform: translateX(24%) translateY(6%) rotate(6deg); }
+  .card .shot.stack .open { z-index: 2; }
+  @media (hover: hover) {
+    .card .shot.stack:hover img { transform: none; }
+    .card .shot.n2:hover img:nth-child(1) { transform: translateX(-22%) rotate(-7deg); }
+    .card .shot.n2:hover img:nth-child(2) { transform: translateX(22%) translateY(6%) rotate(6deg); }
+    .card .shot.n3:hover img:nth-child(1) { transform: translateX(-30%) translateY(4%) rotate(-9deg); }
+    .card .shot.n3:hover img:nth-child(2) { transform: translateY(-5%); }
+    .card .shot.n3:hover img:nth-child(3) { transform: translateX(30%) translateY(6%) rotate(8deg); }
+    .card .shot.n1:hover img { transform: scale(1.02); }
+  }
+  @media (prefers-reduced-motion: reduce) { .card .shot.stack img { transition: none; } }
   @media (max-width: 700px) {
     .h-sticky { perspective: 1000px; }
     .card { padding: 10px 10px 18px; }
@@ -127,63 +150,33 @@
   <div class="h-sticky">
     <div class="scene" id="scene">
 
-      <article class="card glass" data-item>
-        <a class="shot" href="progetto.html#bustachiara"><img src="img/bustachiara.png" alt="Schermata di BustaChiara"><span class="open" aria-hidden="true">Apri il case study <i>→</i></span></a>
+      <article class="card glass folder" data-item>
+        <a class="shot stack n3" href="cartella.html#civic" aria-label="Apri la cartella Civic tech"><img src="img/bustachiara.png" alt=""><img src="img/scontrino-stipendio.png" alt=""><img src="img/scontrino-pubblico.png" alt=""><span class="open" aria-hidden="true">Apri la cartella <i>→</i></span></a>
         <div class="info">
-          <div class="num">01</div>
-          <h2><a href="progetto.html#bustachiara">BustaChiara</a></h2>
-          <p>Legge la busta paga e la spiega voce per voce, con i conti in chiaro. Tutto resta sul tuo dispositivo.</p>
-          <div class="meta"><span class="tags">JavaScript · PWA</span><a class="ext glass" href="https://github.com/MarvinBonazzo/bustachiara" target="_blank" rel="noopener">GitHub ↗</a></div>
+          <div class="num">01 · 3 progetti</div>
+          <h2><a href="cartella.html#civic">Civic tech</a></h2>
+          <p>Strumenti che rendono comprensibili i soldi tra cittadini e Stato: stipendio, tasse, spesa pubblica.</p>
+          <div class="meta"><span class="tags">BustaChiara · Scontrino delle tasse · Scontrino pubblico</span></div>
         </div>
       </article>
 
-      <article class="card glass" data-item>
-        <a class="shot" href="progetto.html#scontrino-stipendio"><img src="img/scontrino-stipendio.png" alt="Schermata di Scontrino delle tasse"><span class="open" aria-hidden="true">Apri il case study <i>→</i></span></a>
+      <article class="card glass folder" data-item>
+        <a class="shot stack n2" href="cartella.html#utility" aria-label="Apri la cartella Utility personali"><img src="img/budjet.png" alt=""><img src="img/loya.png" alt=""><span class="open" aria-hidden="true">Apri la cartella <i>→</i></span></a>
         <div class="info">
-          <div class="num">02</div>
-          <h2><a href="progetto.html#scontrino-stipendio">Scontrino delle tasse</a></h2>
-          <p>Dal tuo lordo a quanto vai a pagare di INPS e IRPEF, stampato come uno scontrino.</p>
-          <div class="meta"><span class="tags">HTML · IRPEF 2026</span><a class="ext glass" href="https://marvinbonazzo.github.io/scontrino-stipendio/" target="_blank" rel="noopener">Apri ↗</a></div>
+          <div class="num">02 · 2 progetti</div>
+          <h2><a href="cartella.html#utility">Utility personali</a></h2>
+          <p>Nati per un mio bisogno quotidiano e usati ogni giorno.</p>
+          <div class="meta"><span class="tags">BudJet · Loya</span></div>
         </div>
       </article>
 
-      <article class="card glass" data-item>
-        <a class="shot" href="progetto.html#scontrino-pubblico"><img src="img/scontrino-pubblico.png" alt="Schermata di Scontrino pubblico"><span class="open" aria-hidden="true">Apri il case study <i>→</i></span></a>
+      <article class="card glass folder" data-item>
+        <a class="shot stack n1" href="cartella.html#vertical" aria-label="Apri la cartella Vertical software"><img src="img/gelatonutriente.png" alt=""><span class="open" aria-hidden="true">Apri la cartella <i>→</i></span></a>
         <div class="info">
-          <div class="num">03</div>
-          <h2><a href="progetto.html#scontrino-pubblico">Scontrino pubblico</a></h2>
-          <p>Quanto spende lo Stato per ogni residente, per l'Italia e per circa 7.900 Comuni. Solo dati ufficiali.</p>
-          <div class="meta"><span class="tags">HTML · Eurostat · ISTAT</span><a class="ext glass" href="https://marvinbonazzo.github.io/scontrino-pubblico/" target="_blank" rel="noopener">Apri ↗</a></div>
-        </div>
-      </article>
-
-      <article class="card glass" data-item>
-        <a class="shot" href="progetto.html#budjet"><img src="img/budjet.png" alt="Schermata di BudJet"><span class="open" aria-hidden="true">Apri il case study <i>→</i></span></a>
-        <div class="info">
-          <div class="num">04</div>
-          <h2><a href="progetto.html#budjet">BudJet</a></h2>
-          <p>Budget minimale in tre gruppi: essenziali, extra e risparmio. Niente account, niente pubblicità.</p>
-          <div class="meta"><span class="tags">TypeScript · Mac · Web</span><a class="ext glass" href="https://marvinbonazzo.github.io/budjet/" target="_blank" rel="noopener">Apri ↗</a></div>
-        </div>
-      </article>
-
-      <article class="card glass" data-item>
-        <a class="shot" href="progetto.html#gelatonutriente"><img src="img/gelatonutriente.png" alt="Schermata di GelatoNutriente"><span class="open" aria-hidden="true">Apri il case study <i>→</i></span></a>
-        <div class="info">
-          <div class="num">05</div>
-          <h2><a href="progetto.html#gelatonutriente">GelatoNutriente</a></h2>
-          <p>Web app per organizzare piani alimentari, con le formule del fabbisogno mostrate passo per passo.</p>
-          <div class="meta"><span class="tags">TypeScript · Web app</span><a class="ext glass" href="https://github.com/MarvinBonazzo/GelatoNutriente" target="_blank" rel="noopener">GitHub ↗</a></div>
-        </div>
-      </article>
-
-      <article class="card glass" data-item>
-        <a class="shot" href="progetto.html#loya"><img src="img/loya.png" alt="Schermata di Loya"><span class="open" aria-hidden="true">Apri il case study <i>→</i></span></a>
-        <div class="info">
-          <div class="num">06</div>
-          <h2><a href="progetto.html#loya">Loya</a></h2>
-          <p>Il portafoglio digitale per carte fedeltà, biglietti e codici. Tutto sul telefono, senza cloud.</p>
-          <div class="meta"><span class="tags">Kotlin · Android · PWA</span><a class="ext glass" href="https://github.com/MarvinBonazzo/Loya" target="_blank" rel="noopener">GitHub ↗</a></div>
+          <div class="num">03 · 1 progetto</div>
+          <h2><a href="cartella.html#vertical">Vertical software</a></h2>
+          <p>Software costruito su misura per una professione specifica.</p>
+          <div class="meta"><span class="tags">GelatoNutriente</span></div>
         </div>
       </article>
 
@@ -197,7 +190,7 @@
   </div>
 </section>
 
-<div class="counter glass" id="counter">01 / 06</div>
+<div class="counter glass" id="counter">01 / 03</div>
 
 <script>
 (() => {
@@ -223,7 +216,7 @@
   let R = 600, PITCH = 300, PER = 700, wrapTop = 0, vh = innerHeight, cur = 0, raf = 0;
   let deco = [], lastIdx = -1, counterOn = null, lastPE = -1;
   let path = [], lastQ = -1e9, endDot = null;   // line pieces in order: { bar, t0, t1 } along the spiral
-  const START = 0.36;                 // the line begins just after the first card (BustaChiara)
+  const START = 0.36;                 // the line begins just after the first card
   const LEAD = 0.32;                  // the line runs this far ahead of the card in front
 
   const place = (el, t, extra = '') =>

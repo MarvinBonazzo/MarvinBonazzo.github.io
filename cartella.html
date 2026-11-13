@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cartella — Marvin Bonazzo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/transition.js"></script>
+<style>
+  header { padding: 8vh 0 6vh; }
+  header p.lead { margin-top: 16px; font-size: clamp(1.1rem, 2vw, 1.35rem); line-height: 1.45; color: var(--ink-mid); max-width: 52ch; }
+  .list { padding-bottom: 12vh; }
+  header h1 { font-weight: 300; font-size: clamp(2.6rem, 7vw, 5rem); line-height: 1; margin-top: 12px; color: rgba(59,53,45,.88); }
+  .list { list-style: none; display: grid; gap: 14px; }
+  .group { display: grid; gap: 14px; padding-bottom: 8vh; }
+  .group-head { display: grid; gap: 6px; padding: 0 6px 4px; }
+  .group-head h2 { font-weight: 400; font-size: 1.05rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+  .group-head p { color: var(--ink-mid); font-size: 1.05rem; max-width: 60ch; }
+  .item a {
+    display: grid; grid-template-columns: 56px 180px 1fr auto; gap: 26px; align-items: center;
+    padding: 14px 26px 14px 14px; border-radius: 22px; text-decoration: none; transition: transform .25s;
+  }
+  .item a:hover { transform: translateX(6px); }
+  .item .num { font-size: .8rem; letter-spacing: .2em; color: var(--ink-soft); text-align: center; }
+  .item img { width: 180px; aspect-ratio: 16/10; object-fit: cover; object-position: top; border-radius: 12px; }
+  .item h2 { font-weight: 400; font-size: 1.6rem; }
+  .item p { margin-top: 4px; color: var(--ink-mid); font-size: 1.05rem; line-height: 1.45; max-width: 60ch; }
+  .item .go { font-size: 1.3rem; color: var(--ink-soft); }
+  @media (max-width: 760px) {
+    .group { display: grid; gap: 14px; padding-bottom: 8vh; }
+  .group-head { display: grid; gap: 6px; padding: 0 6px 4px; }
+  .group-head h2 { font-weight: 400; font-size: 1.05rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+  .group-head p { color: var(--ink-mid); font-size: 1.05rem; max-width: 60ch; }
+  .item a { grid-template-columns: 96px 1fr; gap: 16px; padding: 10px 16px 10px 10px; }
+    .item .num, .item .go { display: none; }
+    .item img { width: 96px; aspect-ratio: 1; border-radius: 10px; }
+    .item h2 { font-size: 1.25rem; }
+    .item p { font-size: .95rem; }
+  }
+</style>
+</head>
+<body>
+<div class="blob a"></div><div class="blob b"></div>
+
+<nav class="topbar">
+  <a class="pill glass" href="./#hwrap">← Portfolio</a>
+  <a class="pill glass" href="progetti.html">Tutti i progetti</a>
+</nav>
+
+<main class="wrap">
+  <header id="head"></header>
+  <ul class="list" id="list"></ul>
+</main>
+
+<script src="assets/projects.js"></script>
+<script>
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const keys = Object.keys(window.CATEGORIES);
+  const key = keys.includes(location.hash.slice(1)) ? location.hash.slice(1) : keys[0];
+  const c = window.CATEGORIES[key];
+  const items = window.PROJECTS.filter(p => p.category === key);
+  document.title = `${c.name} — Marvin Bonazzo`;
+  document.getElementById('head').innerHTML = `
+    <div class="eyebrow">Cartella ${String(keys.indexOf(key) + 1).padStart(2, '0')} / ${String(keys.length).padStart(2, '0')} · ${items.length} ${items.length > 1 ? 'progetti' : 'progetto'}</div>
+    <h1>${esc(c.name)}</h1>
+    <p class="lead">${esc(c.text)}</p>`;
+  document.getElementById('list').innerHTML = items.map((p, i) => `
+    <li class="item"><a class="glass" href="progetto.html#${p.slug}">
+      <span class="num">${String(i + 1).padStart(2, '0')}</span>
+      <img src="${p.cover}" alt="" loading="lazy">
+      <div><h2>${esc(p.name)}</h2><p>${esc(p.short)}</p></div>
+      <span class="go">→</span>
+    </a></li>`).join('');
+  addEventListener('hashchange', () => location.reload());
+</script>
+</body>
+</html>
