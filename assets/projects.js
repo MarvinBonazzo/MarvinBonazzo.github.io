@@ -39,14 +39,14 @@ window.PROJECTS = [
     next: 'Stabilizzare la lettura su più layout di cedolino e pubblicare l\'APK per Android.'
   },
   {
-    slug: 'wrapped-stipendio',
+    slug: 'scontrino-stipendio',
     category: 'civic',
-    name: 'Il Wrapped del tuo stipendio',
-    short: 'Il tuo stipendio raccontato a storie, come lo Spotify Wrapped: dove finisce ogni euro e cosa paghi con le tasse.',
+    name: 'Scontrino dello Stipendio',
+    short: 'Il tuo stipendio raccontato a storie: dove finisce ogni euro e cosa paghi con le tasse.',
     tagline: 'Le tasse spiegate in modo diretto, una storia alla volta.',
-    cover: 'img/wrapped-stipendio.png',
-    gallery: ['img/wrapped-stipendio-m1.png', 'img/wrapped-stipendio-m2.png', 'img/wrapped-stipendio-m3.png'],
-    links: { live: 'https://marvinbonazzo.github.io/scontrino-stipendio/wrapped/', code: 'https://github.com/MarvinBonazzo/scontrino-stipendio' },
+    cover: 'img/scontrino-stipendio.png',
+    gallery: ['img/scontrino-stipendio-m1.png', 'img/scontrino-stipendio-m2.png', 'img/scontrino-stipendio-m3.png'],
+    links: { live: 'https://marvinbonazzo.github.io/scontrino-stipendio/', code: 'https://github.com/MarvinBonazzo/scontrino-stipendio' },
     facts: { Anno: '2026', Tipo: 'Storie web per ragazzi', Stack: 'Un solo file HTML', Regole: 'IRPEF e INPS 2026' },
     problem: 'A scuola nessuno spiega cosa succede ai soldi di uno stipendio. Le parole sono difficili (lordo, IRPEF, detrazioni) e i numeri sembrano lontani, così le tasse restano una cosa noiosa da adulti. Volevo renderle pop senza addolcirle: brevi, colorate, da sfogliare con il dito come le storie di Instagram, dando del tu a chi legge.',
     audience: [
@@ -57,28 +57,28 @@ window.PROJECTS = [
     principles: [
       ['Una schermata, un\'idea', 'Numeri giganti, colori pieni e frasi brevi: si capisce anche senza leggere tutto.'],
       ['Ogni parola si spiega', 'Le parole tecniche sono sottolineate: toccandole si apre una spiegazione di una o due frasi.'],
-      ['Dati ufficiali, nessuna stima', 'Regole fiscali 2026 e spesa pubblica 2024 di Eurostat, gli stessi numeri della pagina completa.'],
+      ['Dati ufficiali, nessuna stima', 'Regole fiscali 2026 e spesa pubblica 2024 di Eurostat, con fonti e calcoli consultabili in fondo.'],
       ['Dire cosa non torna', 'I contributi che non bastano per le pensioni, il deficit, le tasse che non si vedono in busta paga.']
     ],
     how: [
       ['Scegli un lavoro', 'Barista, infermiera, programmatrice, oppure scrivi il tuo lordo.'],
       ['Dal costo al netto', 'Quanto spende l\'azienda per te, quanto arriva sul tuo conto e dove va il resto.'],
-      ['Cosa pagano i tuoi soldi', 'Contributi e IRPEF divisi tra pensioni, ospedali, scuola e le altre voci della spesa pubblica, più la parte presa in prestito.'],
-      ['Lo scontrino finale', 'La busta paga stampata come uno scontrino, con il link al Wrapped dello Stato.']
+      ['Cosa pagano i tuoi soldi', 'Contributi e IRPEF divisi tra pensioni, sanità, scuola e le altre voci della spesa pubblica, più la parte presa in prestito.'],
+      ['Scontrino, fonti e calcoli', 'La busta paga stampata come uno scontrino. Sotto, il conto di un anno intero con regole, numeri interi e fonti.']
     ],
-    tech: 'Un solo index.html, senza dipendenze. Il calcolo è copiato identico dallo Scontrino delle tasse: contributi, scaglioni IRPEF 2026, detrazioni, taglio del cuneo. Navigazione a tocchi come le storie, numeri animati e un glossario a cartoncino che funziona anche da tastiera. Nessun dato salvato, nessun tracciamento.',
-    story: 'È nato dallo Scontrino delle tasse, una pagina pensata per adulti. Con Claude l\'ho trasformato in storie per ragazzi e poi l\'ho reso complementare al Wrapped dello Stato: stessi dati, stesse 13 voci di spesa, e ognuno finisce con il link all\'altro. Uno mostra cosa paghi tu, l\'altro quanti soldi arrivano allo Stato e dove vanno.',
+    tech: 'Un solo index.html, senza dipendenze. Il calcolo segue le regole 2026: contributi, scaglioni IRPEF, detrazioni, taglio del cuneo, trattamento integrativo. Navigazione a tocchi come le storie, numeri animati e un glossario a cartoncino che funziona anche da tastiera. Nessun dato salvato, nessun tracciamento.',
+    story: 'All\'inizio era una calcolatrice per adulti: scrivevi il lordo e leggevi una lunga pagina di conti. Con Claude l\'ho trasformata in storie per ragazzi, con il tu e senza parole addolcite, e l\'ho resa complementare allo Scontrino dello Stato: stessi dati, stesse 13 voci di spesa, e ognuno porta all\'altro. Uno mostra cosa paghi tu, l\'altro quanti soldi arrivano allo Stato e dove vanno.',
     next: 'Un pulsante per condividere lo scontrino finale come immagine.'
   },
   {
-    slug: 'wrapped-stato',
+    slug: 'scontrino-stato',
     category: 'civic',
-    name: 'Il Wrapped dello Stato',
+    name: 'Scontrino dello Stato',
     short: 'Un anno di soldi pubblici in un minuto: quanto spende lo Stato per ognuno di noi, da dove arrivano i soldi e perché non bastano.',
-    tagline: 'La spesa pubblica italiana, raccontata come lo Spotify Wrapped.',
-    cover: 'img/wrapped-stato.png',
-    gallery: ['img/wrapped-stato-m1.png', 'img/wrapped-stato-m2.png', 'img/wrapped-stato-m3.png'],
-    links: { live: 'https://marvinbonazzo.github.io/scontrino-pubblico/wrapped/', code: 'https://github.com/MarvinBonazzo/scontrino-pubblico' },
+    tagline: 'La spesa pubblica italiana, raccontata a storie.',
+    cover: 'img/scontrino-stato.png',
+    gallery: ['img/scontrino-stato-m1.png', 'img/scontrino-stato-m2.png', 'img/scontrino-stato-m3.png'],
+    links: { live: 'https://marvinbonazzo.github.io/scontrino-pubblico/', code: 'https://github.com/MarvinBonazzo/scontrino-pubblico' },
     facts: { Anno: '2026', Tipo: 'Storie web per ragazzi', Fonti: 'Eurostat · ISTAT · Banca d\'Italia', Dati: 'Italia, 2024' },
     problem: 'Di spesa pubblica si parla con cifre in miliardi che non dicono niente a nessuno, tanto meno a un ragazzo. Mancava un modo per capire in un minuto quanto si spende per ognuno di noi, per cosa, da dove arrivano i soldi e perché lo Stato si indebita.',
     audience: [
@@ -88,7 +88,7 @@ window.PROJECTS = [
     ],
     principles: [
       ['Euro al giorno, a testa', 'Ogni cifra è la spesa divisa per i residenti e per 365: 51,56 € al giorno si capisce meglio di 1.109 miliardi.'],
-      ['Solo dati ufficiali', 'Eurostat per spesa ed entrate 2024, Banca d\'Italia per il debito, ISTAT per i residenti.'],
+      ['Solo dati ufficiali', 'Eurostat per spesa ed entrate 2024, Banca d\'Italia per il debito, ISTAT per i residenti. Tutti i numeri interi sono in fondo, con le fonti.'],
       ['Ogni parola si spiega', 'Deficit, BTP, accise: si toccano e si apre una spiegazione semplice.'],
       ['Tono neutro', 'Fatti e confronti, nessun giudizio politico. E si ricorda sempre che è una media, non quanto paghi tu.']
     ],
@@ -96,11 +96,11 @@ window.PROJECTS = [
       ['Quanto spende per te', '51,56 € al giorno, 18.820 € l\'anno per ogni persona che vive in Italia.'],
       ['Le voci più grandi', 'Pensioni, sanità, sussidi, scuola e interessi sul debito, con confronti che fanno pensare.'],
       ['Da dove arrivano', 'Contributi, IRPEF, IVA e accise: anche chi non lavora ancora paga qualcosa a ogni acquisto.'],
-      ['I conti non tornano', '3,40 € al giorno presi in prestito, un debito di 50.343 € a testa, poi lo scontrino di un giorno.']
+      ['I conti non tornano', '3,40 € al giorno presi in prestito, un debito di 50.343 € a testa, poi lo scontrino di un giorno con fonti e calcoli.']
     ],
-    tech: 'Un solo index.html. Le 100 monetine e lo scontrino finale sono generati da un elenco con le 13 voci di spesa, e i centesimi sono sistemati perché la somma torni sempre con il totale. Usa gli stessi dati dello Scontrino pubblico, che resta la versione completa per l\'Italia e per i circa 7.900 Comuni.',
-    story: 'È la versione a storie dello Scontrino pubblico. Con Claude l\'ho reso complementare al Wrapped dello stipendio: ho aggiunto da dove arrivano i soldi, il debito spiegato come una carta di credito e un glossario a cartoncino per ogni parola tecnica. In fondo, un link porta a vedere quanto ci metti tu.',
-    next: 'Una versione per il proprio Comune, con gli stessi dati SIOPE dello Scontrino pubblico.'
+    tech: 'Un solo index.html. Le 100 monetine, lo scontrino finale e il pannello delle fonti sono generati da un elenco con le 13 voci di spesa, e i centesimi sono sistemati perché la somma torni sempre con il totale.',
+    story: 'All\'inizio era una pagina lunga per adulti, con la spesa per residente dell\'Italia e di ogni Comune. Con Claude l\'ho trasformata in storie per ragazzi e l\'ho resa complementare allo Scontrino dello Stipendio: ho aggiunto da dove arrivano i soldi, il debito spiegato come una carta di credito, un glossario per ogni parola tecnica e, in fondo, tutti i numeri interi con le fonti.',
+    next: 'Una versione per il proprio Comune, con i dati SIOPE dei pagamenti comunali.'
   },
   {
     slug: 'budjet',
