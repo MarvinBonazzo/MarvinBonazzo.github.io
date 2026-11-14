@@ -63,11 +63,11 @@
 <script>
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const item = p => `
-    <li class="item"><a class="glass" href="progetto.html#${p.slug}">
+    <li class="item"><a class="glass" href="${p.url || `progetto.html#${p.slug}`}"${p.url ? ' target="_blank" rel="noopener"' : ''}>
       <span class="num">${String(window.PROJECTS.indexOf(p) + 1).padStart(2, '0')}</span>
       <img src="${p.cover}" alt="" loading="lazy">
       <div><h2>${esc(p.name)}</h2><p>${esc(p.short)}</p></div>
-      <span class="go">→</span>
+      <span class="go">${p.url ? '↗' : '→'}</span>
     </a></li>`;
   document.getElementById('groups').innerHTML = Object.entries(window.CATEGORIES).map(([key, c]) => `
     <section class="group">

@@ -2,7 +2,8 @@
 window.CATEGORIES = {
   civic: { name: 'Civic tech', text: 'Strumenti che rendono comprensibili i soldi tra cittadini e Stato: busta paga, tasse, spesa pubblica.' },
   utility: { name: 'Utility personali', text: 'Nati per un mio bisogno quotidiano e usati ogni giorno.' },
-  vertical: { name: 'Vertical software', text: 'Software costruito su misura per una professione specifica.' }
+  vertical: { name: 'Vertical software', text: 'Software costruito su misura per una professione specifica.' },
+  studi: { name: 'Studi e riassunti', text: 'Quello che imparo dai corsi, riassunto in pagine interattive.' }
 };
 
 window.PROJECTS = [
@@ -205,6 +206,15 @@ window.PROJECTS = [
     },
     tech: 'React 19, TypeScript e Vite 8 per una build interamente statica su GitHub Pages. Zustand per lo stato, Dexie su IndexedDB per l\'archivio con transazioni e migrazioni, dietro contratti asincroni sostituibili un giorno con un\'API REST. Grafici con Recharts caricati su richiesta, nessuna CDN e nessun font remoto.',
     story: 'Un progetto cresciuto per versioni: dall\'editor della settimana alla gestione dei pazienti, poi i metodi energetici, il questionario, i PDF e l\'esportazione cifrata. Ogni funzione è stata pensata per far vedere al professionista il perché di ogni numero.',
+  },
+  {
+    // Pagina interattiva esterna: le liste aprono direttamente il link, senza case study.
+    slug: 'happiness-in-leadership',
+    category: 'studi',
+    name: 'Happiness in Leadership',
+    short: 'Cosa ho imparato da Managing Happiness di Arthur C. Brooks (HarvardX): sei moduli con schemi, esempi e cursori interattivi, in inglese e italiano.',
+    cover: 'img/happiness-in-leadership.png',
+    url: 'https://marvinbonazzo.github.io/happiness-in-leadership/#it',
+    links: { live: 'https://marvinbonazzo.github.io/happiness-in-leadership/#it', code: 'https://github.com/MarvinBonazzo/happiness-in-leadership' }
   }
-
 ];

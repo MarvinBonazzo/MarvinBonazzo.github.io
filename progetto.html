@@ -105,6 +105,7 @@
   const slug = decodeURIComponent(location.hash.slice(1)) || new URLSearchParams(location.search).get('p');
   const i = Math.max(0, list.findIndex(p => p.slug === slug));
   const p = list[i];
+  if (p.url) { location.replace(p.url); return; }
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const cat = window.CATEGORIES[p.category] || { name: 'Case study' };
   const folder = list.filter(q => q.category === p.category);
