@@ -42,13 +42,13 @@ window.PROJECTS = [
     slug: 'wrapped-stipendio',
     category: 'civic',
     name: 'Il Wrapped del tuo stipendio',
-    short: 'Lo stipendio raccontato a storie, come lo Spotify Wrapped: dove finisce ogni euro e cosa si paga con le tasse.',
-    tagline: 'Le tasse spiegate a un ragazzo di 13 anni, una storia alla volta.',
+    short: 'Il tuo stipendio raccontato a storie, come lo Spotify Wrapped: dove finisce ogni euro e cosa paghi con le tasse.',
+    tagline: 'Le tasse spiegate in modo diretto, una storia alla volta.',
     cover: 'img/wrapped-stipendio.png',
     gallery: ['img/wrapped-stipendio-m1.png', 'img/wrapped-stipendio-m2.png', 'img/wrapped-stipendio-m3.png'],
     links: { live: 'https://marvinbonazzo.github.io/scontrino-stipendio/wrapped/', code: 'https://github.com/MarvinBonazzo/scontrino-stipendio' },
     facts: { Anno: '2026', Tipo: 'Storie web per ragazzi', Stack: 'Un solo file HTML', Regole: 'IRPEF e INPS 2026' },
-    problem: 'A scuola nessuno spiega cosa succede ai soldi di uno stipendio. Le parole sono difficili (lordo, IRPEF, detrazioni) e i numeri sembrano lontani, così le tasse restano una cosa noiosa da adulti. Volevo renderle pop: brevi, colorate, da sfogliare con il dito come le storie di Instagram.',
+    problem: 'A scuola nessuno spiega cosa succede ai soldi di uno stipendio. Le parole sono difficili (lordo, IRPEF, detrazioni) e i numeri sembrano lontani, così le tasse restano una cosa noiosa da adulti. Volevo renderle pop senza addolcirle: brevi, colorate, da sfogliare con il dito come le storie di Instagram, dando del tu a chi legge.',
     audience: [
       'Ragazzi delle medie e delle superiori che non hanno mai visto una busta paga.',
       'Insegnanti che cercano uno spunto per educazione civica ed economia.',
@@ -61,14 +61,14 @@ window.PROJECTS = [
       ['Dire cosa non torna', 'I contributi che non bastano per le pensioni, il deficit, le tasse che non si vedono in busta paga.']
     ],
     how: [
-      ['Scegli una persona', 'Barista, infermiera, programmatrice, oppure scrivi il tuo lordo.'],
-      ['La pizza dello stipendio', 'Quanto spende l\'azienda, quante fette arrivano sul conto e dove vanno le altre.'],
+      ['Scegli un lavoro', 'Barista, infermiera, programmatrice, oppure scrivi il tuo lordo.'],
+      ['Dal costo al netto', 'Quanto spende l\'azienda per te, quanto arriva sul tuo conto e dove va il resto.'],
       ['Cosa pagano i tuoi soldi', 'Contributi e IRPEF divisi tra pensioni, ospedali, scuola e le altre voci della spesa pubblica, più la parte presa in prestito.'],
       ['Lo scontrino finale', 'La busta paga stampata come uno scontrino, con il link al Wrapped dello Stato.']
     ],
     tech: 'Un solo index.html, senza dipendenze. Il calcolo è copiato identico dallo Scontrino delle tasse: contributi, scaglioni IRPEF 2026, detrazioni, taglio del cuneo. Navigazione a tocchi come le storie, numeri animati e un glossario a cartoncino che funziona anche da tastiera. Nessun dato salvato, nessun tracciamento.',
     story: 'È nato dallo Scontrino delle tasse, una pagina pensata per adulti. Con Claude l\'ho trasformato in storie per ragazzi e poi l\'ho reso complementare al Wrapped dello Stato: stessi dati, stesse 13 voci di spesa, e ognuno finisce con il link all\'altro. Uno mostra cosa paghi tu, l\'altro quanti soldi arrivano allo Stato e dove vanno.',
-    next: 'Testi in seconda persona quando scrivi il tuo stipendio e un pulsante per condividere lo scontrino finale come immagine.'
+    next: 'Un pulsante per condividere lo scontrino finale come immagine.'
   },
   {
     slug: 'wrapped-stato',
@@ -94,7 +94,7 @@ window.PROJECTS = [
     ],
     how: [
       ['Quanto spende per te', '51,56 € al giorno, 18.820 € l\'anno per ogni persona che vive in Italia.'],
-      ['Le voci più grandi', 'Pensioni, ospedali, aiuti, scuola e interessi, con confronti che fanno pensare.'],
+      ['Le voci più grandi', 'Pensioni, sanità, sussidi, scuola e interessi sul debito, con confronti che fanno pensare.'],
       ['Da dove arrivano', 'Contributi, IRPEF, IVA e accise: anche chi non lavora ancora paga qualcosa a ogni acquisto.'],
       ['I conti non tornano', '3,40 € al giorno presi in prestito, un debito di 50.343 € a testa, poi lo scontrino di un giorno.']
     ],
