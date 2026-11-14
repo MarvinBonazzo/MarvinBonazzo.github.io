@@ -7,38 +7,6 @@ window.CATEGORIES = {
 
 window.PROJECTS = [
   {
-    slug: 'bustachiara',
-    category: 'civic',
-    name: 'BustaChiara',
-    short: 'Legge la busta paga e la spiega voce per voce, con i conti in chiaro. Tutto resta sul tuo dispositivo.',
-    tagline: 'La busta paga dovrebbe essere semplice: parla dei nostri soldi.',
-    cover: 'img/bustachiara.png',
-    gallery: ['img/bustachiara-01-home.jpg', 'img/bustachiara-04-controlla.jpg', 'img/bustachiara-02-riassunto.jpg', 'img/bustachiara-03-voci.jpg'],
-    links: { live: 'https://marvinbonazzo.github.io/bustachiara/', code: 'https://github.com/MarvinBonazzo/bustachiara' },
-    facts: { Anno: '2026', Tipo: 'PWA, open source', Stack: 'JavaScript · pdf.js · Tesseract · ONNX', Stato: 'Alpha' },
-    problem: 'Il cedolino italiano è pieno di sigle, codici e numeri che quasi nessuno sa leggere. Chi vuole capirlo spesso finisce per caricarlo su ChatGPT o su un altro servizio online: un documento con nome, codice fiscale e stipendio che finisce sui server di qualcun altro.',
-    audience: [
-      'Lavoratori dipendenti che vogliono capire cosa c\'è davvero nella propria busta paga.',
-      'Chi ha appena cambiato lavoro o contratto e vuole controllare che i conti tornino.',
-      'Chi non vuole consegnare i propri dati economici a un servizio di intelligenza artificiale.'
-    ],
-    principles: [
-      ['Tutto sul dispositivo', 'PDF, foto e testo letti nel browser. Nessun server, nessuna API di AI, nessun analytics.'],
-      ['Spiegare, non giudicare', 'Ogni voce ha una frase semplice e il conto fatto, per esempio 160 ore × 11,63 €.'],
-      ['Onestà sui limiti', 'L\'app dice quando può sbagliare e chiede di confrontare sempre i dati con il documento.'],
-      ['Verificabile', 'Codice aperto e Content Security Policy che blocca ogni connessione verso terze parti.']
-    ],
-    how: [
-      ['Carica', 'PDF, scansione o foto: il file resta sul telefono o sul computer.'],
-      ['Controlla', 'Documento e campi letti affiancati, con i numeri principali in vista.'],
-      ['Leggi il riassunto', 'Netto, passaggio dal lordo al netto, ferie, permessi e TFR in una pagina.'],
-      ['Capisci ogni voce', 'Ogni sezione si apre e spiega in parole semplici cosa significa.']
-    ],
-    tech: 'Una pipeline di lettura locale: pdf.js per i PDF nativi, Tesseract e PP-OCRv5 su ONNX Runtime Web per scansioni e foto. Riconosce tabelle su più pagine, voci spezzate su più righe e la terminologia di molti contratti (privato, NoiPA, lavoro domestico, edilizia, sanità…). È una PWA: si installa da un link, funziona offline e si aggiorna da sola.',
-    story: 'È nata per evitare di caricare le buste paga su un\'intelligenza artificiale online. A ottobre 2026 l\'ho ripresa con Claude per un redesign completo dell\'interfaccia, seguito da una revisione degli errori di lettura e da piccoli miglioramenti emersi strada facendo.',
-    next: 'Stabilizzare la lettura su più layout di cedolino e pubblicare l\'APK per Android.'
-  },
-  {
     slug: 'scontrino-stipendio',
     category: 'civic',
     name: 'Scontrino dello Stipendio',
@@ -101,6 +69,38 @@ window.PROJECTS = [
     tech: 'Un solo index.html. Le 100 monetine, lo scontrino finale e il pannello delle fonti sono generati da un elenco con le 13 voci di spesa, e i centesimi sono sistemati perché la somma torni sempre con il totale.',
     story: 'All\'inizio era una pagina lunga per adulti, con la spesa per residente dell\'Italia e di ogni Comune. Con Claude l\'ho trasformata in storie per ragazzi e l\'ho resa complementare allo Scontrino dello Stipendio: ho aggiunto da dove arrivano i soldi, il debito spiegato come una carta di credito, un glossario per ogni parola tecnica e, in fondo, tutti i numeri interi con le fonti.',
     next: 'Una versione per il proprio Comune, con i dati SIOPE dei pagamenti comunali.'
+  },
+  {
+    slug: 'bustachiara',
+    category: 'civic',
+    name: 'BustaChiara',
+    short: 'Legge la busta paga e la spiega voce per voce, con i conti in chiaro. Tutto resta sul tuo dispositivo.',
+    tagline: 'La busta paga dovrebbe essere semplice: parla dei nostri soldi.',
+    cover: 'img/bustachiara.png',
+    gallery: ['img/bustachiara-01-home.jpg', 'img/bustachiara-04-controlla.jpg', 'img/bustachiara-02-riassunto.jpg', 'img/bustachiara-03-voci.jpg'],
+    links: { live: 'https://marvinbonazzo.github.io/bustachiara/', code: 'https://github.com/MarvinBonazzo/bustachiara' },
+    facts: { Anno: '2026', Tipo: 'PWA, open source', Stack: 'JavaScript · pdf.js · Tesseract · ONNX', Stato: 'Alpha' },
+    problem: 'Il cedolino italiano è pieno di sigle, codici e numeri che quasi nessuno sa leggere. Chi vuole capirlo spesso finisce per caricarlo su ChatGPT o su un altro servizio online: un documento con nome, codice fiscale e stipendio che finisce sui server di qualcun altro.',
+    audience: [
+      'Lavoratori dipendenti che vogliono capire cosa c\'è davvero nella propria busta paga.',
+      'Chi ha appena cambiato lavoro o contratto e vuole controllare che i conti tornino.',
+      'Chi non vuole consegnare i propri dati economici a un servizio di intelligenza artificiale.'
+    ],
+    principles: [
+      ['Tutto sul dispositivo', 'PDF, foto e testo letti nel browser. Nessun server, nessuna API di AI, nessun analytics.'],
+      ['Spiegare, non giudicare', 'Ogni voce ha una frase semplice e il conto fatto, per esempio 160 ore × 11,63 €.'],
+      ['Onestà sui limiti', 'L\'app dice quando può sbagliare e chiede di confrontare sempre i dati con il documento.'],
+      ['Verificabile', 'Codice aperto e Content Security Policy che blocca ogni connessione verso terze parti.']
+    ],
+    how: [
+      ['Carica', 'PDF, scansione o foto: il file resta sul telefono o sul computer.'],
+      ['Controlla', 'Documento e campi letti affiancati, con i numeri principali in vista.'],
+      ['Leggi il riassunto', 'Netto, passaggio dal lordo al netto, ferie, permessi e TFR in una pagina.'],
+      ['Capisci ogni voce', 'Ogni sezione si apre e spiega in parole semplici cosa significa.']
+    ],
+    tech: 'Una pipeline di lettura locale: pdf.js per i PDF nativi, Tesseract e PP-OCRv5 su ONNX Runtime Web per scansioni e foto. Riconosce tabelle su più pagine, voci spezzate su più righe e la terminologia di molti contratti (privato, NoiPA, lavoro domestico, edilizia, sanità…). È una PWA: si installa da un link, funziona offline e si aggiorna da sola.',
+    story: 'È nata per evitare di caricare le buste paga su un\'intelligenza artificiale online. A ottobre 2026 l\'ho ripresa con Claude per un redesign completo dell\'interfaccia, seguito da una revisione degli errori di lettura e da piccoli miglioramenti emersi strada facendo.',
+    next: 'Stabilizzare la lettura su più layout di cedolino e pubblicare l\'APK per Android.'
   },
   {
     slug: 'budjet',
