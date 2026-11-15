@@ -216,5 +216,14 @@ window.PROJECTS = [
     cover: 'img/happiness-in-leadership.png',
     url: 'https://marvinbonazzo.github.io/happiness-in-leadership/#it',
     links: { live: 'https://marvinbonazzo.github.io/happiness-in-leadership/#it', code: 'https://github.com/MarvinBonazzo/happiness-in-leadership' }
+  },
+  {
+    slug: 'lean-six-sigma-black-belt',
+    category: 'studi',
+    name: 'Lean Six Sigma Black Belt',
+    short: 'Processi e persone visti dall\'hospitality: sette moduli dove ogni strumento è applicato due volte, con esempi e parti interattive, in inglese e italiano.',
+    cover: 'img/lean-six-sigma-black-belt.png',
+    url: 'https://marvinbonazzo.github.io/lean-six-sigma-black-belt/#it',
+    links: { live: 'https://marvinbonazzo.github.io/lean-six-sigma-black-belt/#it', code: 'https://github.com/MarvinBonazzo/lean-six-sigma-black-belt' }
   }
 ];
